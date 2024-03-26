@@ -71,7 +71,7 @@
       <div class="sectionimg" id="sectionimg1" style="background-image: url('https://cdn.pixabay.com/photo/2017/05/04/08/08/raze-dam-2283277_640.jpg');">
         <div class="overlay"></div>
         <div class="text">
-          <h1>Texto sobre a imagem</h1>
+          <h1>Texto sobre a imagem Hello World</h1>
           <p>Seu texto aqui</p>
         </div>
       </div>
