@@ -1,0 +1,79 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+img {
+  max-width: 100%;
+}
+
+.table-container{
+  width: 90%;
+  height: 70%;
+  max-width: 100%;
+  overflow: scroll;
+}
+/* Estilização da barra de rolagem para o elemento .table-container */
+.table-container::-webkit-scrollbar {
+  width: 10px; /* Largura da barra de rolagem */
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Cor de fundo da barra de rolagem */
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background-color: #007bff; /* Cor da alça da barra de rolagem */
+  border-radius: 6px; /* Raio da alça da barra de rolagem */
+}
+
+.custom-select {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+}
+
+#column-button {
+  width: 200px;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+}
+
+#column-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+
+#column-options label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#column-options input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.buttons {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  margin: 20px;
+}
+
+.buttons button {
+  padding: 10px 20px;
+  color: #fff;
+  border: none;
+  margin-right: 10px;
+  cursor: pointer;
+}
