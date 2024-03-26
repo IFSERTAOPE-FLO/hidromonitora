@@ -62,7 +62,7 @@ else{
 		 	</header> <!-- Fim Menu de navegação -->
         <br><br><br><br>
 
-        <center><h1>Minhas matrizes:</h1></center>
+        <center><h1>Minhas matrizes:</h1></center> <!-- Consertar. -->
 
         
         <!--<div class="button-container">
@@ -77,7 +77,7 @@ else{
             include_once("config.php");
 
             // Listagem das tabelas
-            $sql = "SELECT * FROM tabelas ORDER BY data_anexo DESC";
+            $sql = "SELECT * FROM tabelas ORDER BY dataAtual DESC";
             $result = mysqli_query($conn, $sql);
             
           

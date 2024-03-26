@@ -192,7 +192,7 @@ else{
                       }
                       
                       echo "</td>";
-                    echo "<td>".$row["codigo"]."</td><td>".$row["nome_tabela"]."</td><td>".$row["descricao"]."</td><td>".$row["autor"]."</td><td>".$row["tipo"]."</td><td>".$row["data_anexo"]."</td></tr>";
+                    echo "<td>".$row["codigo"]."</td><td>".$row["nome_tabela"]."</td><td>".$row["descricao"]."</td><td>".$row["autor"]."</td><td>".$row["tipo"]."</td><td>".$row["dataAtual"]."</td></tr>";
                   }
 
                   echo "</table>";
