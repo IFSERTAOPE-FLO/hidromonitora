@@ -164,7 +164,7 @@ else{
             $offset = ($paginaAtual - 1) * $itensPorPagina;
 
             // Consulta SQL para buscar os registros, ordenados pela coluna "data_anexo" (mais antigos primeiro)
-            $sql = "SELECT * FROM tabelas " . $filtroSQL . " ORDER BY data_anexo DESC LIMIT $itensPorPagina OFFSET $offset";
+            $sql = "SELECT * FROM tabelas " . $filtroSQL; //. " ORDER BY data_anexo DESC LIMIT $itensPorPagina OFFSET $offset";
             $result = mysqli_query($conn, $sql);
 
             if (mysqli_num_rows($result) > 0) {
