@@ -23,6 +23,7 @@ else{
     <head>
         <title>Matrizes</title>
         <link rel="stylesheet" type="text/css" href="css/tabelas.css"/>
+        <link rel="stylesheet" type="text/css" href="css/centralizar.css"/>
         <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     </head>
     <body style="background: #ffffff">
@@ -62,7 +63,7 @@ else{
 		 	</header> <!-- Fim Menu de navegação -->
         <br><br><br><br>
 
-        <center><h1>Matrizes:</h1></center>
+        <h1 class = 'matrizes'>Matrizes:</h1>
 
         
         <!--<div class="button-container">

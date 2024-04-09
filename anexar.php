@@ -181,6 +181,7 @@ if (isset($_POST['submit'])) {
 		<meta charset="utf-8"/>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="css/centralizar.css"/>
 		<link rel="stylesheet" type="text/css" href="css/formulario.css"/>
         <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 	</head>
@@ -210,7 +211,7 @@ if (isset($_POST['submit'])) {
                 <div id="modal" class="modal">
                     <div class="modal-conteudo">
                         <span class="fechar">&times;</span>
-                        <center><h3>Validações</h3><center>
+                        <h3 class = 'validacoes'>Validações</h3>
                         <ul>
                             <li>Todos os campos devem ser preenchidos.</li>
                             <li>O nome da tabela deve ter no mínimo 3 caracteres.</li>
