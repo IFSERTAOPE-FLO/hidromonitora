@@ -39,7 +39,7 @@
             <ul class="nav-list">
                 <?php
                 if ($log == true){
-                    echo "<li><a href='index.php'>Inicio</a></li>";
+                    echo "<li><a href='index.php'>Início</a></li>";
                     echo "<li><a href='sobre.php'  style='border-bottom: 2px #ffffff solid;'>Sobre</a></li>";
                     echo "<li>
                     <div class='dropdown'>
@@ -65,7 +65,7 @@
           <source src="img/pexels-kapaw-3586035-1280x720-25fps.mp4" type="video/mp4">
           </video>
         <div>
-          <h4>Bem Vindo a</h4>
+          <h4>BEM-VINDO  A</h4>
           <h3>HIDROMONITORA</h3>
           <p>Descubra, compartilhe e monitore ecossistemas aquáticos - A plataforma de gestão de recursos hídricos.</p>
         </div>
@@ -350,16 +350,16 @@
                             $mail = new PHPMailer(true);
                             try {
                                 $mail->isSMTP();
-                                $mail->Host = 'sandbox.smtp.mailtrap.io';
-                                $mail->Port = 2525;
+                                $mail->Host = 'smtp.gmail.com';
+                                $mail->Port = 578;
                                 $mail->SMTPAuth = true;
-                                $mail->Username = '7ff71ff4f879f9';
-                                $mail->Password = 'db0611f7d1b6e7';
+                                $mail->Username = 'sabrina.ferraz@aluno.ifsertao-pe.edu.br';
+                                $mail->Password = 'bvhhyfyrlkxyjhvw';
 
                                 $mail->CharSet = 'UTF-8'; // Configura o conjunto de caracteres para UTF-8
 
                                 $mail->setFrom($email);
-                                $mail->addAddress('jlsflucas08@gmial.com'); // Insira o email de destino para onde a mensagem será enviada
+                                $mail->addAddress('sabrina.ferraz@aluno.ifsertao-pe.edu.br'); // Insira o email de destino para onde a mensagem será enviada
 
                                 $mail->isHTML(true);
                                 $mail->Subject = $subject;
@@ -389,10 +389,9 @@
     </div> 
 
     <!-- rodapé -->
-     <!-- rodapé -->
      <?php
         include "rodape.php";
-      ?>
+     ?>
 
       <script>
         var buttons = document.querySelectorAll('.caroussel-buttons button');

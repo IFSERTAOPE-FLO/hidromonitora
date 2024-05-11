@@ -56,21 +56,28 @@ if (isset($_POST['submit'])) {
         // Verificações do nome da tabela
         if (empty($nome_tabela)) {
             $errors['nome_tabela'] = 'O nome da tabela é obrigatório!';
-        } elseif (strlen($nome_tabela) < 3) {
+        } 
+        if (strlen($nome_tabela) < 3) {
             $errors['nome_tabela'] = 'O nome da tabela não pode ter menos de 3 caracteres!';
+        }
+        if (strlen($nome_tabela) > 15) {
+            $errors['nome_tabela'] = 'O nome da tabela não pode ter mais de 15 caracteres!';
         }
 
         // Verificações da descrição
         if (empty($descricao)) {
             $errors['descricao'] = 'A descrição é obrigatória!';
-        } elseif (strlen($descricao) < 3) {
+        } 
+        if (strlen($descricao) < 3) {
             $errors['descricao'] = 'A descrição não pode ter menos de 3 caracteres!';
         }
-
-        if ($arquivo != "none") {
+        if (strlen($descricao) > 45) {
+            $errors['descricao'] = 'A descrição não pode ter mais de 30 caracteres!';
+        }
+        if ($arquivo != "none" && empty($errors)) {
             // Verificação do tamanho do arquivo
-            if ($_FILES["arquivo"]["size"] > 5242880) { // 5MB em bytes
-                $errors[] = 'O tamanho do arquivo deve ser menor que 5MB.';
+            if ($_FILES["arquivo"]["size"] > 209715200) { // 200MB em bytes
+                $errors[] = 'O tamanho do arquivo deve ser menor que 200MB.';
             } else {
                 if ($_FILES['arquivo']['type'] == 'image/jpeg' || $_FILES['arquivo']['type'] == 'image/png') {
                     // Processar imagem
@@ -118,7 +125,16 @@ if (isset($_POST['submit'])) {
 
                     // Verificar se o cabeçalho atual é igual ao cabeçalho esperado
                     if (count($header) !== count($expectedHeader) || array_diff($expectedHeader, $header)) {
-                        $errors[] = 'O arquivo CSV não possui os campos de cabeçalho esperados para o tipo de dado ' . $tipo . '.';
+                        if($tipo == 'biologico'){
+                            $errors[] = 'O arquivo CSV não possui os campos de cabeçalho esperados para o tipo de dado <strong>biológico</strong>.';
+                        }
+                        if($tipo == 'ambiental'){
+                            $errors[] = 'O arquivo CSV não possui os campos de cabeçalho esperados para o tipo de dado <strong>ambiental</strong>.';
+                        }
+                        if($tipo == 'etnobiologico'){
+                            $errors[] = 'O arquivo CSV não possui os campos de cabeçalho esperados para o tipo de dado <strong>etnobiológico</strong>.';
+                        }
+
                     } else {
                         foreach ($lines as $line) {
                             $fields = str_getcsv($line, ';');
@@ -158,7 +174,31 @@ if (isset($_POST['submit'])) {
                             }
                         }
                     }
-                } else {
+                }/*elseif($_FILES['arquivo']['type'] == 'application/pdf'){
+                    // Processar arquivo PDF
+                    $conteudo = file_get_contents($arquivo);
+                    $formato = $_FILES['arquivo']['type'];
+
+                    try {
+                        // Prepara e executa a inserção dos dados para PDF
+                        $stmt = $conn->prepare("INSERT INTO tabelas VALUES (0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                        $stmt->bindParam(1, $codigo);
+                        $stmt->bindParam(2, $nome_tabela);
+                        $stmt->bindParam(3, $descricao);
+                        $stmt->bindParam(4, $tipo);
+                        $stmt->bindParam(5, $visibilidade);
+                        $stmt->bindParam(6, $autor);
+                        $stmt->bindParam(7, $dataAtual);
+                        $stmt->bindParam(8, $formato);
+                        $stmt->bindParam(9, $tamanho, PDO::PARAM_INT);
+                        $stmt->bindValue(10, $conteudo, PDO::PARAM_LOB);
+                        $stmt->execute();
+                
+                        $sucesso[] = '<br><div style="background: #bbffb1;color: green; font-size: 15px; border-radius: 5px; text-align: center; padding: 5px;">Arquivo PDF enviado com sucesso para o servidor!</div>';
+                    } catch (PDOException $e) {
+                        $errors[] = 'Erro: ' . $e->getMessage();
+                    }
+                }*/ else {
                     $errors[] = 'Arquivo não suportado! Somente JPEG, PNG ou CSV são aceitos.';
                 }
             }
@@ -215,7 +255,7 @@ if (isset($_POST['submit'])) {
                         <ul>
                             <li>Todos os campos devem ser preenchidos.</li>
                             <li>O nome da tabela deve ter no mínimo 3 caracteres.</li>
-                            <li>A descrição deve conter no máximo XX caracteres.</li>
+                            <li>A descrição deve conter no máximo 30 caracteres.</li>
                             <li>Só são aceitos arquivos em formato JPEG, PNG ou CSV.</li>
                             <li>As planilhas devem seguir o modelo padrão localizado na <a href="index.php">página inicial</a>.</li>
                         </ul>
@@ -249,7 +289,7 @@ if (isset($_POST['submit'])) {
                 
                 <label for="arquivo" >Anexar Matriz:</label>
                 <input type="file" id="arquivo" name="arquivo"><br>
-                <span class="descricaoArquivo">O arquivo não deve ser maior que 5MB.</span><br><br>
+                <span class="descricaoArquivo"><strong>Arquivo não deve ser maior que 200MB.</strong></span><br><br>
 
                 <?php
                     if (!empty($errors)) {

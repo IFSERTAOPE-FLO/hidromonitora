@@ -131,18 +131,16 @@
 
 								$mail = new PHPMailer(true);
 								try {
-									$mail->isSMTP();
-									$mail->Host = 'sandbox.smtp.mailtrap.io';
-									$mail->Port = 2525;
+									$mail->Host = 'smtp.gmail.com';
+									$mail->Port = 587;
 									$mail->SMTPAuth = true;
-									$mail->Username = '7ff71ff4f879f9';
-									$mail->Password = 'db0611f7d1b6e7';
+									$mail->Username = 'sabrina.ferraz@aluno.ifsertao-pe.edu.br';
+									$mail->Password = 'bvhhyfyrlkxyjhvw';
 
 									$mail->CharSet = 'UTF-8'; // Configura o conjunto de caracteres para UTF-8
 
-									$mail->setFrom('jlsflucas08@gmail.com', 'Lucas Ferreira');
+									$mail->setFrom('sabrina.ferraz@aluno.ifsertao-pe.edu.br', 'Sabrina Ferraz');
 									$mail->addAddress($email);
-
 									$mail->isHTML(true);
 									$mail->Subject = $subject;
 									$mail->Body = $message;

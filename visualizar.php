@@ -75,13 +75,13 @@
             echo '<button>Botão 1</button>';
             echo '<button id="download-button">Baixar Tabela Filtrada como CSV</button>';
             echo '</div>';
-        } else {
+        } /*else {
             // Exibe um botão de download normal
             echo '<div class="buttons">';
             echo '<button>Botão 1</button>';
             echo '<a href="download.php?id='.$row['id'].'"><button id="download-button">Baixar Arquivo</button></a>';
             echo '</div>';
-        }
+        }*/
     ?>
 
 

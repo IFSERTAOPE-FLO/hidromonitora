@@ -16,6 +16,6 @@
          echo "Conexão efetuada com sucesso";
      }*/
 
-     $conn = mysqli_connect("localhost", "root", "", "projeto");
+    $conn = mysqli_connect("localhost", "root", "", "projeto");
 
 ?>

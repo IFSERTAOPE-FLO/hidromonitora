@@ -37,7 +37,7 @@
             <ul class="nav-list">
                 <?php
                 if ($log == true){
-                    echo "<li><a href='index.php'  style='border-bottom: 2px #ffffff solid;'>Inicio</a></li>";
+                    echo "<li><a href='index.php'  style='border-bottom: 2px #ffffff solid;'>Início</a></li>";
                     echo "<li><a href='sobre.php'>Sobre</a></li>";
                     echo "<li>
                     <div class='dropdown'>
