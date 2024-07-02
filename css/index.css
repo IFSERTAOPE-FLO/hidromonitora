@@ -281,7 +281,7 @@ article#idea span {
 }
   
 .box-text, .box-text-erro {
-    width: 50%;
+    width: 50%; /*alterado*/
     height: 400px;
     background: #ffffff;
     color: rgb(73, 73, 73);
@@ -347,7 +347,7 @@ article#idea span {
 
 /* Seção */
 section{
-    display: flex;
+    display: flexbox; /*alterado*/
     flex-wrap: wrap;
 }
 .box{
