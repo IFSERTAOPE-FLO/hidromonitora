@@ -11,7 +11,6 @@ class Spreadsheet{
     private $data_cadastro;
     private $conteudo;
 
-
     public function __construct(){
         $args = func_get_args();
         $num = func_num_args();

@@ -6,8 +6,8 @@ require_once 'User.php';
 $userController = new UserController();
 
 //Criar um novo usuário
-//$user = new User("John Doe", "123.456.789-00", "joho@gmail.com", "123456", "123456789", "Rua das Flores, 123", "Universidade XYZ", "Professor");
-//$novoObj = $userController->createUser($user);
+$user = new User("John Doe", "123.456.789-00", "joho@gmail.com", "123456", "123456789", "Rua das Flores, 123", "Universidade XYZ", "Professor");
+$novoObj = $userController->createUser($user);
 
 //echo "Usuário criado com sucesso! ID: " . $novoObj->getId() . "<br>";
 
