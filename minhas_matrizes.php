@@ -41,7 +41,7 @@ else{
               <?php
               if ($log == true){
 			  			  echo "<li><a href='index.php'>Início</a></li>";
-				  		  echo "<li><a href='sobre.php'>Sobre</a></li>";
+				  		  //echo "<li><a href='sobre.php'>Sobre</a></li>";
 							  //echo "<li><a href='tabelas.php'>Matrizes</a></li>";
 				  		  echo "<li>
                 <div class='dropdown' style='border-bottom: 2px #ffffff solid;'>

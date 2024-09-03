@@ -251,10 +251,12 @@ function validarTelefone($telefone) {
                             <label for="funcao" class="labelInput"><i class="fi fi-rr-graduation-cap"></i> &nbsp;Função</label>
                             <br>
                             <select name="funcao" id="funcao" >
-                                <option <?php echo (isset($_POST['funcao']) && $_POST['funcao'] == 'Professor/Pesquisador') ? 'selected' : ''; ?>>Professor/Pesquisador</option>
-                                <option <?php echo (isset($_POST['funcao']) && $_POST['funcao'] == 'Estudante de pós-graduação') ? 'selected' : ''; ?>>Estudante de pós-graduação</option>
-                                <option <?php echo (isset($_POST['funcao']) && $_POST['funcao'] == 'Pesquisador de pós-doutorado/DCTR') ? 'selected' : ''; ?>>Pesquisador de pós-doutorado/DCTR</option>
-                                <option <?php echo (isset($_POST['funcao']) && $_POST['funcao'] == 'Profissional de agências gestoras') ? 'selected' : ''; ?>>Profissional de agências gestoras</option>
+                                <!--<option <?php echo (isset($_POST['funcao']) && $_POST['funcao'] == 'Professor/Pesquisador') ? 'selected' : ''; ?>>Professor/Pesquisador</option>
+                                <option <?php// echo (isset($_POST['funcao']) && $_POST['funcao'] == 'Estudante de pós-graduação') ? 'selected' : ''; ?>>Estudante de pós-graduação</option>
+                                <option <?php //echo (isset($_POST['funcao']) && $_POST['funcao'] == 'Pesquisador de pós-doutorado/DCTR') ? 'selected' : ''; ?>>Pesquisador de pós-doutorado/DCTR</option>
+                                <option <?php //echo (isset($_POST['funcao']) && $_POST['funcao'] == 'Profissional de agências gestoras') ? 'selected' : ''; ?>>Profissional de agências gestoras</option>-->
+                                <option <?php echo (isset($_POST['funcao']) && $_POST['funcao'] == 'Profissional') ? 'selected' : ''; ?>>Profissional</option>
+                                <option <?php echo (isset($_POST['funcao']) && $_POST['funcao'] == 'Leitor') ? 'selected' : ''; ?>>Leitor</option>
                             </select>    
                         </div>
                         
