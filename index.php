@@ -45,6 +45,7 @@
       background: #eee;
       font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
       font-size: 14px;
+      text-align: center;
       color: #00b3f6;
       margin: 0;
       padding: 0;
