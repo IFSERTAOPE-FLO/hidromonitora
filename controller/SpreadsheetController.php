@@ -94,4 +94,21 @@ class SpreadsheetController {
         return $spreadsheetsList;
     }
 
+    //Retornar número total de registros geral, por tipo ou visibilidade
+    public function getTotalSpreadsheets() {
+        return $this->spreadsheetModel->getTotalSpreadsheets();
+    }
+
+    public function getTotalSpreadsheetsByCategory($categoria) {
+        return $this->spreadsheetModel->getTotalSpreadsheets($categoria);
+    }
+
+    public function getTotalSpreadsheetsByVisibility($visibilidade) {
+        return $this->spreadsheetModel->getTotalSpreadsheets(null, $visibilidade);
+    }
+
+    public function getTotalSpreadsheetsByCategoryAndVisibility($categoria, $visibilidade) {
+        return $this->spreadsheetModel->getTotalSpreadsheets($categoria, $visibilidade);
+    }
+
 }

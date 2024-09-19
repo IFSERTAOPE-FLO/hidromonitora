@@ -1,13 +1,7 @@
 <?php
 //Usar dessa forma
-//require_once 'controller/UserController.php';
+require_once 'controller/UserController.php';
 //require_once 'model/User.php';
-
-//$userController = new UserController();
-
-//Criar um novo usuário
-//$user = new User("John Doe", "123.456.789-00", "joho@gmail.com", "123456", "123456789", "Rua das Flores, 123", "Universidade XYZ", "Professor");
-//$novoObj = $userController->createUser($user);
 session_start();
 
 $errors = array();
@@ -81,27 +75,16 @@ if (isset($_POST['submit'])) {
 
     // Verificar se houve erros de validação
     if (empty($errors)) {
-        // Realizar a inserção no banco de dados
-        $stmt = $conn->prepare("SELECT * FROM cadastro WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $resultEmail = $stmt->get_result();
+        $userController = new UserController();
+        $resultEmail = $userController->verifiedEmailAndCPF($email, $cpf);
 
-        $stmt = $conn->prepare("SELECT * FROM cadastro WHERE cpf = ?");
-        $stmt->bind_param("s", $cpf);
-        $stmt->execute();
-        $resultCpf = $stmt->get_result();
-
-        if ($resultEmail->num_rows > 0) {
-            $errors['email'] = "Email já registrado.";
-        } elseif ($resultCpf->num_rows > 0) {
-            $errors['cpf'] = "CPF já registrado.";
+        if ($resultEmail) {
+            $errors['cadastro'] = "E-mail ou CPF já cadastrados.";
         } else {
             // Realizar a inserção no banco de dados
-            $hashedSenha = password_hash($senha, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("INSERT INTO cadastro (nome, cpf, senha, email, telefone, endereco, instituicao, funcao) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssssss", $nome, $cpf, $hashedSenha, $email, $telefone, $endereco, $instituicao, $funcao);
-            $result = $stmt->execute();
+            //$user = new User("John Doe", "123.456.789-00", "joho@gmail.com", "123456", "123456789", "Rua das Flores, 123", "Universidade XYZ", "Professor");
+            $user = new User($nome, $cpf, $email, $senha, $telefone, $endereco, $instituicao, $funcao);
+            $novoObj = $userController->createUser($user);
 
             if ($result) {
                 $sucesso[] = '<br><div style="background: #bbffb1;color: green; font-size: 15px; border-radius: 5px; text-align: center; padding: 5px;">Cadastro efetuado com sucesso! Vá para a tela de <a href="login.php">login<a> e entre na sua conta.</div>';

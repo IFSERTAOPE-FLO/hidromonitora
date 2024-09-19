@@ -19,7 +19,7 @@ class SpreadsheetModel {
             ':categoria' => $spreadsheet->getCategoria(),
             ':visibilidade' => $spreadsheet->getVisibilidade(),
             ':id_usuario' => $spreadsheet->getIdUsuario(),
-            ':data_cadastro' => $spreadsheet->getDataCadastro(),
+            ':data_cadastro' => NOW(),
             ':conteudo' => $spreadsheet->getConteudo()
         ];
         return $this->db->executeQuery($sql, $params);
@@ -33,7 +33,7 @@ class SpreadsheetModel {
     }
 
     public function updateSpreadsheet(Spreadsheet $spreadsheet) {
-        $sql = "UPDATE spreadsheets SET codigo = :codigo, nome = :nome, descricao = :descricao, categoria = :categoria, visibilidade = :visibilidade, id_usuario = :id_usuario, data_cadastro = :data_cadastro, conteudo = :conteudo WHERE id = :id";
+        $sql = "UPDATE spreadsheets SET codigo = :codigo, nome = :nome, descricao = :descricao, categoria = :categoria, visibilidade = :visibilidade, conteudo = :conteudo WHERE id = :id";
         $params = [
             ':id' => $spreadsheet->getId(),
             ':codigo' => $spreadsheet->getCodigo(),
@@ -41,8 +41,6 @@ class SpreadsheetModel {
             ':descricao' => $spreadsheet->getDescricao(),
             ':categoria' => $spreadsheet->getCategoria(),
             ':visibilidade' => $spreadsheet->getVisibilidade(),
-            ':id_usuario' => $spreadsheet->getIdUsuario(),
-            ':data_cadastro' => $spreadsheet->getDataCadastro(),
             ':conteudo' => $spreadsheet->getConteudo()
         ];
         return $this->db->executeQuery($sql, $params);
@@ -75,4 +73,27 @@ class SpreadsheetModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    //Retornar número total de registros geral, por tipo ou visibilidade
+    public function getTotalSpreadsheets($categoria = null, $visibilidade = null) {
+        if ($categoria == null && $visibilidade == null) {
+            $sql = "SELECT COUNT(*) FROM spreadsheets";
+            $stmt = $this->db->executeQuery($sql);
+            return $stmt->fetchColumn();
+        } else if ($categoria != null && $visibilidade == null) {
+            $sql = "SELECT COUNT(*) FROM spreadsheets WHERE categoria = :categoria";
+            $params = [':categoria' => $categoria];
+            $stmt = $this->db->executeQuery($sql, $params);
+            return $stmt->fetchColumn();
+        } else if ($categoria == null && $visibilidade != null) {
+            $sql = "SELECT COUNT(*) FROM spreadsheets WHERE visibilidade = :visibilidade";
+            $params = [':visibilidade' => $visibilidade];
+            $stmt = $this->db->executeQuery($sql, $params);
+            return $stmt->fetchColumn();
+        } else {
+            $sql = "SELECT COUNT(*) FROM spreadsheets WHERE categoria = :categoria AND visibilidade = :visibilidade";
+            $params = [':categoria' => $categoria, ':visibilidade' => $visibilidade];
+            $stmt = $this->db->executeQuery($sql, $params);
+            return $stmt->fetchColumn();
+        }
+    }
 }

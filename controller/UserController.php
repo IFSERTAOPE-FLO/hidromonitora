@@ -1,6 +1,6 @@
 <?php
 
-require_once '../model/db/UserModel.php';
+require_once 'model/db/UserModel.php';
 
 class UserController {
     private $userModel;
@@ -47,5 +47,13 @@ class UserController {
             $usersList[] = $userObj;
         }
         return $usersList;
+    }
+
+    public function verifiedEmailAndCPF($email, $cpf=null) {
+        return $this->userModel->verifiedEmailAndCPF($email, $cpf);
+    }
+
+    public function verifiedEmailAndPassword($email, $password) {
+        return $this->userModel->verifiedEmailAndPassword($email, $password);
     }
 }

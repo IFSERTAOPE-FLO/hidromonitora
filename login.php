@@ -99,21 +99,19 @@
                                 $email = $_POST['email'];
                                 $senha = $_POST['senha'];
 
-                                $stmt = $conn->prepare("SELECT * FROM cadastro WHERE email = ?");
-                                $stmt->bind_param("s", $email);
-                                $stmt->execute();
-                                $result = $stmt->get_result();
+                                include_once("controller/UserController.php");
 
-                                if ($result->num_rows < 1) {
+                                $userController = new UserController();
+
+                                // Verifica se o email existe no banco de dados                              
+                                if (!$userController->verifiedEmailAndCPF($email)) {
                                     // Exibe mensagem de erro
                                     echo "<div style='background: #ffa5ae;color: red; font-size: 15px; border-radius: 5px; text-align: center; padding: 5px;'>";
                                     echo "<p>Email não encontrado!</p>";
                                     echo "</div>";
                                 } else {
-                                    $row = $result->fetch_assoc();
-                                    $hashedSenha = $row['senha'];
 
-                                    if (password_verify($senha, $hashedSenha)) {
+                                    if ($userController->verifiedEmailAndPassword($email, $senha)) {
                                         // Define variáveis de sessão e redireciona para index.php
                                         $_SESSION['email'] = $email;
                                         $_SESSION['senha'] = $senha;
