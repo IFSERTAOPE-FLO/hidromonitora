@@ -30,9 +30,46 @@
     <link rel="stylesheet" type="text/css" href="css/centralizar.css"/>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
     
+    <style>
+      html,
+    body {
+      position: relative;
+      height: 100%;
+    }
+
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #00b3f6;
+      margin: 0;
+      padding: 0;
+      
+    }
+
+    .swiper {
+      width: 100%;
+      padding-top: 50px;
+      padding-bottom: 200px;
+    }
+
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      width: 650px;
+      height: 200px;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+    }
+
+    </style>
 </head>
 <body>
     <header>
@@ -311,6 +348,62 @@
 			    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu leo tortor. Nunc mauris velit, lobortis a nulla sit amet, rutrum consequat purus. Nullam egestas consectetur neque, ac bibendum sapien aliquam nec.</p>
 			  </div>
       </section>-->
+      <h2>Trabalhos pioneiros</h2>
+      <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="img/exemplo.png">
+      </div>
+      <div class="swiper-slide">
+        <img src="img/exemplo.png">
+      </div>
+      <div class="swiper-slide">
+        <img src="img/exemplo.png">
+      </div>
+      <div class="swiper-slide">
+        <img src="img/exemplo.png">
+      </div>
+      <div class="swiper-slide">
+        <img src="img/exemplo.png">
+      </div>
+      <div class="swiper-slide">
+        <img src="img/exemplo.png">
+      </div>
+      <div class="swiper-slide">
+        <img src="img/exemplo.png">
+      </div>
+      <div class="swiper-slide">
+        <img src="img/exemplo.png">
+      </div>
+      <div class="swiper-slide">
+        <img src="img/exemplo.png">
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: "auto",
+      coverflowEffect: {
+        rotate: 30,
+        stretch: 60,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+      },
+    });
+  </script>
 
       <section id="mapa">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.9281208750435!2d-38.583788685299396!3d-8.602899993817145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x709f4972e3cf11b%3A0x3448f9a9fa3c6b37!2sIFSert%C3%A3oPE%20Campus%20Floresta!5e0!3m2!1spt-BR!2sbr!4v1679950120125!5m2!1spt-BR!2sbr" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
