@@ -353,31 +353,31 @@
       <div class="swiper mySwiper">
     <div class="swiper-wrapper">
       <div class="swiper-slide">
-        <img src="img/exemplo.png">
+        <img src="src/img/exemplo.png">
       </div>
       <div class="swiper-slide">
-        <img src="img/exemplo.png">
+        <img src="src/img/exemplo.png">
       </div>
       <div class="swiper-slide">
-        <img src="img/exemplo.png">
+        <img src="src/img/exemplo.png">
       </div>
       <div class="swiper-slide">
-        <img src="img/exemplo.png">
+        <img src="src/img/exemplo.png">
       </div>
       <div class="swiper-slide">
-        <img src="img/exemplo.png">
+        <img src="src/img/exemplo.png">
       </div>
       <div class="swiper-slide">
-        <img src="img/exemplo.png">
+        <img src="src/img/exemplo.png">
       </div>
       <div class="swiper-slide">
-        <img src="img/exemplo.png">
+        <img src="src/img/exemplo.png">
       </div>
       <div class="swiper-slide">
-        <img src="img/exemplo.png">
+        <img src="src/img/exemplo.png">
       </div>
       <div class="swiper-slide">
-        <img src="img/exemplo.png">
+        <img src="src/img/exemplo.png">
       </div>
     </div>
     <div class="swiper-pagination"></div>
