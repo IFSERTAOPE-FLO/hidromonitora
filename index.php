@@ -275,7 +275,7 @@
             echo '</div>';
             ?>
             <div class="carousel">
-                <img src="src/img/zyro-image.png">
+                <img src="img/zyro-image.png">
                 <img src="img/zyro-image (1).png">
                 <img src="img/zyro-image (2).png">
             </div>

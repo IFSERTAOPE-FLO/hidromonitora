@@ -72,7 +72,7 @@
 
         <div class="box">
             <div class="banner">
-                <img src="img/06.png" class="logo" style="width: 260.5px; height: 250.7px;"></img>
+                <img src="src/img/06.png" class="logo" style="width: 260.5px; height: 250.7px;"></img>
             </div>
             <div class="container">
                 <form method="post" action="login.php">

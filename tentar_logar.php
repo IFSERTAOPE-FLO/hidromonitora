@@ -968,7 +968,7 @@ section{
       
       <article id="idea">
         <video autoplay muted loop>
-          <source src="img/pexels-kapaw-3586035-1280x720-25fps.mp4" type="video/mp4">
+          <source src="src/video/img/pexels-kapaw-3586035-1280x720-25fps.mp4" type="video/mp4">
         </video>
         <div>
           <img src="img/05.png" width=500px></img>

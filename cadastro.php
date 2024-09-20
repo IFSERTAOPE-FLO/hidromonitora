@@ -173,7 +173,7 @@ function validarTelefone($telefone) {
 
         <div class="box">
             <div class="banner">
-                <img src="img/06.png" class="logo"  style="width: 247.5px; height: 237.7px; left: 20%;"></img>
+                <img src="src/img/06.png" class="logo"  style="width: 247.5px; height: 237.7px; left: 20%;"></img>
             </div>
             <div class="container2">
                 <div class="titulo">

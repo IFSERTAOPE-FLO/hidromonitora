@@ -54,14 +54,14 @@
             <ul class="nav__ul nav__ul--extra">
               <li>
                 <span>Agência financiadora:</span>
-                <a href=""><img src="img/facepe.png" alt="FACEPE" style="width: 80%"></img></a>
+                <a href=""><img src="src/img/facepe.png" alt="FACEPE" style="width: 80%"></img></a>
               </li>
 
               <br>
           
               <li>
                 <span>Instituição executora:</span>
-                <a href=""><img src="img/ifsertaope.png" alt="IFSERTAOPE" title="IFSERTAOPE" style="width: 80%"></img></a>
+                <a href=""><img src="src/img/ifsertaope.png" alt="IFSERTAOPE" title="IFSERTAOPE" style="width: 80%"></img></a>
               </li>
 
               <br>
