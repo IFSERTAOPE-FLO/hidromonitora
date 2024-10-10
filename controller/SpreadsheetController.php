@@ -1,6 +1,6 @@
 <?php
 
-require_once '../model/db/SpreadsheetModel.php';
+require_once 'model/db/SpreadsheetModel.php';
 
 class SpreadsheetController {
     private $spreadsheetModel;
@@ -21,10 +21,12 @@ class SpreadsheetController {
         $spreadsheetObj->setCodigo($spreadsheet['codigo']);
         $spreadsheetObj->setNome($spreadsheet['nome']);
         $spreadsheetObj->setDescricao($spreadsheet['descricao']);
-        $spreadsheetObj->setCategoria($spreadsheet['categoria']);
+        $spreadsheetObj->setTipo($spreadsheet['tipo']);
         $spreadsheetObj->setVisibilidade($spreadsheet['visibilidade']);
-        $spreadsheetObj->setIdUsuario($spreadsheet['id_usuario']);
+        $spreadsheetObj->setAutor($spreadsheet['autor']);
         $spreadsheetObj->setDataCadastro($spreadsheet['data_cadastro']);
+        $spreadsheetObj->setFormato($spreadsheet['formato']);
+        $spreadsheetObj->setTamanho($spreadsheet['tamanho']);
         $spreadsheetObj->setConteudo($spreadsheet['conteudo']);
         return $spreadsheetObj;
     }
@@ -46,10 +48,12 @@ class SpreadsheetController {
             $spreadsheetObj->setCodigo($spreadsheet['codigo']);
             $spreadsheetObj->setNome($spreadsheet['nome']);
             $spreadsheetObj->setDescricao($spreadsheet['descricao']);
-            $spreadsheetObj->setCategoria($spreadsheet['categoria']);
+            $spreadsheetObj->setTipo($spreadsheet['tipo']);
             $spreadsheetObj->setVisibilidade($spreadsheet['visibilidade']);
-            $spreadsheetObj->setIdUsuario($spreadsheet['id_usuario']);
+            $spreadsheetObj->setAutor($spreadsheet['autor']);
             $spreadsheetObj->setDataCadastro($spreadsheet['data_cadastro']);
+            $spreadsheetObj->setFormato($spreadsheet['formato']);
+            $spreadsheetObj->setTamanho($spreadsheet['tamanho']);
             $spreadsheetObj->setConteudo($spreadsheet['conteudo']);
             $spreadsheetsList[] = $spreadsheetObj;
         }
@@ -65,18 +69,20 @@ class SpreadsheetController {
             $spreadsheetObj->setCodigo($spreadsheet['codigo']);
             $spreadsheetObj->setNome($spreadsheet['nome']);
             $spreadsheetObj->setDescricao($spreadsheet['descricao']);
-            $spreadsheetObj->setCategoria($spreadsheet['categoria']);
+            $spreadsheetObj->setTipo($spreadsheet['tipo']);
             $spreadsheetObj->setVisibilidade($spreadsheet['visibilidade']);
-            $spreadsheetObj->setIdUsuario($spreadsheet['id_usuario']);
+            $spreadsheetObj->setAutor($spreadsheet['autor']);
             $spreadsheetObj->setDataCadastro($spreadsheet['data_cadastro']);
+            $spreadsheetObj->setFormato($spreadsheet['formato']);
+            $spreadsheetObj->setTamanho($spreadsheet['tamanho']);
             $spreadsheetObj->setConteudo($spreadsheet['conteudo']);
             $spreadsheetsList[] = $spreadsheetObj;
         }
         return $spreadsheetsList;
     }
 
-    public function getSpreadsheetsByCategory($categoria) {
-        $spreadsheets = $this->spreadsheetModel->getSpreadsheetsByCategory($categoria);
+    public function getSpreadsheetsByCategory($tipo) {
+        $spreadsheets = $this->spreadsheetModel->getSpreadsheetsByCategory($tipo);
         $spreadsheetsList = [];
         foreach ($spreadsheets as $spreadsheet) {
             $spreadsheetObj = new Spreadsheet();
@@ -84,10 +90,12 @@ class SpreadsheetController {
             $spreadsheetObj->setCodigo($spreadsheet['codigo']);
             $spreadsheetObj->setNome($spreadsheet['nome']);
             $spreadsheetObj->setDescricao($spreadsheet['descricao']);
-            $spreadsheetObj->setCategoria($spreadsheet['categoria']);
+            $spreadsheetObj->setTipo($spreadsheet['tipo']);
             $spreadsheetObj->setVisibilidade($spreadsheet['visibilidade']);
-            $spreadsheetObj->setIdUsuario($spreadsheet['id_usuario']);
+            $spreadsheetObj->setAutor($spreadsheet['autor']);
             $spreadsheetObj->setDataCadastro($spreadsheet['data_cadastro']);
+            $spreadsheetObj->setFormato($spreadsheet['formato']);
+            $spreadsheetObj->setTamanho($spreadsheet['tamanho']);
             $spreadsheetObj->setConteudo($spreadsheet['conteudo']);
             $spreadsheetsList[] = $spreadsheetObj;
         }
@@ -99,16 +107,39 @@ class SpreadsheetController {
         return $this->spreadsheetModel->getTotalSpreadsheets();
     }
 
-    public function getTotalSpreadsheetsByCategory($categoria) {
-        return $this->spreadsheetModel->getTotalSpreadsheets($categoria);
+    public function getTotalSpreadsheetsByCategory($tipo) {
+        return $this->spreadsheetModel->getTotalSpreadsheets($tipo);
     }
 
     public function getTotalSpreadsheetsByVisibility($visibilidade) {
         return $this->spreadsheetModel->getTotalSpreadsheets(null, $visibilidade);
     }
 
-    public function getTotalSpreadsheetsByCategoryAndVisibility($categoria, $visibilidade) {
-        return $this->spreadsheetModel->getTotalSpreadsheets($categoria, $visibilidade);
+    public function getTotalSpreadsheetsByCategoryAndVisibility($tipo, $visibilidade) {
+        return $this->spreadsheetModel->getTotalSpreadsheets($tipo, $visibilidade);
     }
 
+    public function getSpreadsheetsByDate(){
+        return $this->spreadsheetModel->getSpreadsheetsByDate();
+    }
+
+    public function checkCode($codigo){
+        return $this->spreadsheetModel->checkCode($codigo);
+    }
+
+    public function getSpreadsheetsByFilter ($tipo, $visibilidade){
+        return $this->spreadsheetModel->getSpreadsheetsByFilter($tipo, $visibilidade);
+    }
+
+    public function definirFiltros($filtro){
+        return $this->spreadsheetModel->definirFiltros($filtro);
+    }
+
+    public function getFilterSQL($filtro){
+        return $this->spreadsheetModel->getFilterSQL($filtro);
+    }
+
+    public function getSpreadsheetsByDate(){
+        return $this->spreadsheetModel->getSpreadsheetsByDate();
+    }
 }

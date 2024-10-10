@@ -113,11 +113,13 @@ else{
             echo "</form>";
 
             // Verifica se o formulário foi enviado
+
+          //  $spreadsheets = $spreadsheetController->getAllSpreadsheets();
             if (isset($_GET['filtro'])) {
                 $filtro = $_GET['filtro'];
-
+            
                 // Realizar a lógica de filtragem aqui com base no valor selecionado em $filtro
-                if ($filtro === 'todos') {
+                /*if ($filtro === 'todos') {
                     $filtroSQL = '';
                 } elseif ($filtro === 'biologico') {
                     $filtroSQL = "WHERE tipo = 'biologico'";
@@ -132,7 +134,23 @@ else{
                 } else {
                     // Opção inválida selecionada
                     $filtroSQL = '';
-                }
+                }*/
+                include_once("controller/SpreadsheetController.php");
+                $spreadsheetController = new SpreadsheetController();
+                // Chama a função definirFiltros da classe SpreadsheetController
+                $filtros = $spreadsheetController->definirFiltros($filtro);
+                $tipo = $filtros['tipo'];
+                $visibilidade = $filtros['visibilidade'];
+
+                // Chama o método para obter as planilhas filtradas
+                 $spreadsheets = $spreadsheetController->getSpreadsheetsByFilter($tipo, $visibilidade);
+
+                 // Obter o total de registros
+                $totalRegistros = $spreadsheetController->getTotalSpreadsheets($tipo, $visibilidade);
+
+                $result = $spreadsheetController->getSpreadsheetsByDate();
+                
+               // $filtroSQL = $spreadsheets;
             } else {
                 $filtroSQL = '';
                 $filtro = '';
@@ -145,10 +163,11 @@ else{
             $maxPaginasVisiveis = 5; // Ajuste este valor conforme necessário
 
             // Obtenha o número total de registros
-            $sqlContagem = "SELECT COUNT(*) as total FROM tabelas " . $filtroSQL;
+            /*$sqlContagem = "SELECT COUNT(*) as total FROM spreadsheets " . $filtroSQL;
             $resultContagem = mysqli_query($conn, $sqlContagem);
             $rowContagem = mysqli_fetch_assoc($resultContagem);
-            $totalRegistros = $rowContagem['total'];
+            $totalRegistros = $rowContagem['total'];*/
+            $totalRegistros = $totalRegistros ?? 0;
 
             // Calcule o número total de páginas
             $totalPaginas = ceil($totalRegistros / $itensPorPagina);
@@ -164,9 +183,10 @@ else{
             // Calcule o deslocamento (offset) para a consulta SQL
             $offset = ($paginaAtual - 1) * $itensPorPagina;
 
-            // Consulta SQL para buscar os registros, ordenados pela coluna "data_anexo" (mais antigos primeiro)
-            $sql = "SELECT * FROM tabelas " . $filtroSQL; //. " ORDER BY data_anexo DESC LIMIT $itensPorPagina OFFSET $offset";
+            // Consulta SQL para buscar os registros, ordenados pela coluna "data_cadastro" (mais antigos primeiro)
+            $sql = "SELECT * FROM spreadsheets " . $filtroSQL; //. " ORDER BY data_anexo DESC LIMIT $itensPorPagina OFFSET $offset";
             $result = mysqli_query($conn, $sql);
+            /*$result = $result ?? [];*/
 
             if (mysqli_num_rows($result) > 0) {
                 // Código HTML para a tabela
@@ -193,7 +213,7 @@ else{
                       }
                       
                       echo "</td>";
-                    echo "<td>".$row["codigo"]."</td><td>".$row["nome_tabela"]."</td><td>".$row["descricao"]."</td><td>".$row["autor"]."</td><td>".$row["tipo"]."</td><td>".$row["dataAtual"]."</td></tr>";
+                    echo "<td>".$row["codigo"]."</td><td>".$row["nome"]."</td><td>".$row["descricao"]."</td><td>".$row["autor"]."</td><td>".$row["tipo"]."</td><td>".$row["data_cadastro"]."</td></tr>";
                   }
 
                   echo "</table>";
@@ -381,4 +401,4 @@ else{
         });
       </script>
   </body>
-</html>
+</html

@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 
@@ -11,12 +12,12 @@ $email = $_SESSION['email'];
 
 if (isset($_POST['submit'])) {
     // Validação do formulário
-    $nome_tabela = htmlspecialchars($_POST['nome_tabela']);
+    $nome = htmlspecialchars($_POST['nome']);
     $descricao = htmlspecialchars($_POST['descricao']);
     $tipo = htmlspecialchars($_POST['tipo']);
     $visibilidade = htmlspecialchars($_POST['visibilidade']);
     $autor = $_SESSION['email'];
-    $dataAtual = date('Y-m-d');
+    $data_cadastro = date('Y-m-d');
     $arquivo = $_FILES["arquivo"]["tmp_name"];
     $tamanho = $_FILES["arquivo"]["size"];
     $formato = $_FILES["arquivo"]["type"];
@@ -45,23 +46,27 @@ if (isset($_POST['submit'])) {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Verificação da existência do código
-    $stmt = $conn->prepare("SELECT * FROM tabelas WHERE codigo = ?");
+   /* $stmt = $conn->prepare("SELECT * FROM tabelas WHERE codigo = ?");
     $stmt->bindParam(1, $codigo);
     $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);*/
+    require_once 'model/db/SpreadsheetModel.php';
+    include_once('controller/SpreadsheetController.php');
+    $spreadsheetController = new SpreadsheetController();
+    $result = $spreadsheetController->checkCode($codigo);
 
     if (count($result) == 0) {
         $errors = array();
 
         // Verificações do nome da tabela
-        if (empty($nome_tabela)) {
-            $errors['nome_tabela'] = 'O nome da tabela é obrigatório!';
+        if (empty($nome)) {
+            $errors['nome'] = 'O nome da tabela é obrigatório!';
         } 
-        if (strlen($nome_tabela) < 3) {
-            $errors['nome_tabela'] = 'O nome da tabela não pode ter menos de 3 caracteres!';
+        if (strlen($nome) < 3) {
+            $errors['nome'] = 'O nome da tabela não pode ter menos de 3 caracteres!';
         }
-        if (strlen($nome_tabela) > 15) {
-            $errors['nome_tabela'] = 'O nome da tabela não pode ter mais de 15 caracteres!';
+        if (strlen($nome) > 15) {
+            $errors['nome'] = 'O nome da tabela não pode ter mais de 15 caracteres!';
         }
 
         // Verificações da descrição
@@ -87,18 +92,19 @@ if (isset($_POST['submit'])) {
 
                     try {
                         // Prepara e executa a inserção dos dados para imagem
-                        $stmt = $conn->prepare("INSERT INTO tabelas VALUES (0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                       /* $stmt = $conn->prepare("INSERT INTO spreadsheets VALUES (0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                         $stmt->bindParam(1, $codigo);
-                        $stmt->bindParam(2, $nome_tabela);
+                        $stmt->bindParam(2, $nome);
                         $stmt->bindParam(3, $descricao);
                         $stmt->bindParam(4, $tipo);
                         $stmt->bindParam(5, $visibilidade);
                         $stmt->bindParam(6, $autor);
-                        $stmt->bindParam(7, $dataAtual);
+                        $stmt->bindParam(7, $data_cadastro);
                         $stmt->bindParam(8, $formato);
                         $stmt->bindParam(9, $tamanho, PDO::PARAM_INT);
                         $stmt->bindParam(10, $conteudo, PDO::PARAM_LOB);
-                        $stmt->execute();
+                        $stmt->execute();*/
+                        $spreadsheetController->createSpreadsheet($codigo, $nome, $descricao, $tipo, $visibilidade, $autor, $data_cadastro, $formato, $tamanho, $conteudo);
 
                         $sucesso[] = '<br><div style="background: #bbffb1;color: green; font-size: 15px; border-radius: 5px; text-align: center; padding: 5px;">Arquivo de imagem enviado com sucesso para o servidor!</div>';
                     } catch (PDOException $e) {
@@ -151,23 +157,23 @@ if (isset($_POST['submit'])) {
                         } else {
                             try {
                                 // Prepara e executa a inserção dos dados para CSV
-                                $stmt = $conn->prepare("INSERT INTO tabelas VALUES (0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                               /* $stmt = $conn->prepare("INSERT INTO spreadsheets VALUES (0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                                 $stmt->bindParam(1, $codigo);
-                                $stmt->bindParam(2, $nome_tabela);
+                                $stmt->bindParam(2, $nome);
                                 $stmt->bindParam(3, $descricao);
                                 $stmt->bindParam(4, $tipo);
                                 $stmt->bindParam(5, $visibilidade);
                                 $stmt->bindParam(6, $autor);
-                                $stmt->bindParam(7, $dataAtual);
+                                $stmt->bindParam(7, $data_cadastro);
                                 $stmt->bindParam(8, $formato);
                                 $stmt->bindParam(9, $tamanho, PDO::PARAM_INT);
                                 $stmt->bindValue(10, $conteudo, PDO::PARAM_LOB);
-                                $stmt->execute();
-                                
+                                $stmt->execute();*/
+                                $spreadsheetController->createSpreadsheet($codigo, $nome, $descricao, $tipo, $visibilidade, $autor, $data_cadastro, $formato, $tamanho, $conteudo);
                                 echo gettype($formato) . "<br>";
                                 echo gettype($tamanho) . "<br>";
                                 echo gettype($conteudo) . "<br>";
-
+                                
                                 $sucesso[] = '<br><div style="background: #bbffb1;color: green; font-size: 15px; border-radius: 5px; text-align: center; padding: 5px;">Arquivo CSV enviado com sucesso para o servidor!</div>';
                             } catch (PDOException $e) {
                                 $errors[] = 'Erro: ' . $e->getMessage();
@@ -264,8 +270,8 @@ if (isset($_POST['submit'])) {
             </div>
             <form action="anexar.php" method="post" enctype="multipart/form-data">
                 
-                <div class="inputBox <?php if (!empty($errors) && isset($errors['nome_tabela'])) echo 'invalid'; ?>" >
-                    <input type="text" id="nome_tabela" name="nome_tabela"  class="inputUser" title="Nome da matriz" required>
+                <div class="inputBox <?php if (!empty($errors) && isset($errors['nome'])) echo 'invalid'; ?>" >
+                    <input type="text" id="nome" name="nome"  class="inputUser" title="Nome da matriz" required>
                     <label for="nome" class="labelInput">Nome:</label>
                 </div>
 
