@@ -127,19 +127,26 @@ class SpreadsheetController {
         return $this->spreadsheetModel->checkCode($codigo);
     }
 
-    public function getSpreadsheetsByFilter ($tipo, $visibilidade){
+    public function getSpreadsheets(){
+        return $this->spreadsheetModel->getSpreadsheetsByFilter();
+    }
+
+    public function getSpreadsheetsByType($tipo){
+        if ($tipo == 'todos') {
+            return $this->spreadsheetModel->getSpreadsheetsByFilter();
+        }
+        return $this->spreadsheetModel->getSpreadsheetsByFilter($tipo);
+    }
+    
+    public function getSpreadsheetsByVisibility($visibilidade){
+        return $this->spreadsheetModel->getSpreadsheetsByFilter(null, $visibilidade);
+    }
+
+    public function getSpreadsheetsByTypeAndVisibility($tipo, $visibilidade){
         return $this->spreadsheetModel->getSpreadsheetsByFilter($tipo, $visibilidade);
     }
 
-    public function definirFiltros($filtro){
-        return $this->spreadsheetModel->definirFiltros($filtro);
-    }
 
-    public function getFilterSQL($filtro){
-        return $this->spreadsheetModel->getFilterSQL($filtro);
-    }
 
-    public function getSpreadsheetsByDate(){
-        return $this->spreadsheetModel->getSpreadsheetsByDate();
-    }
+
 }

@@ -108,59 +108,34 @@ class SpreadsheetModel {
     }
 
    // retornar os registros de acordo com o filtro selecionado em $filtro
-    public function getSpreadsheetsByFilter($tipo, $visibilidade) {
-        $sql = "SELECT * FROM spreadsheets WHERE tipo = :tipo AND visibilidade = :visibilidade";
-        $params = [':tipo' => $tipo, ':visibilidade' => $visibilidade];
-        $stmt = $this->db->executeQuery($sql, $params);
+    public function getSpreadsheetsByFilter($tipo = null, $visibilidade = null) {
+        if ($tipo == null && $visibilidade == null) {
+            $sql = "SELECT * FROM spreadsheets";
+            $stmt = $this->db->executeQuery($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } else if ($tipo != null && $visibilidade == null) {
+            $sql = "SELECT * FROM spreadsheets WHERE tipo = :tipo";
+            $params = [':tipo' => $tipo];
+            $stmt = $this->db->executeQuery($sql, $params);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } else if ($tipo == null && $visibilidade != null) {
+            $sql = "SELECT * FROM spreadsheets WHERE visibilidade = :visibilidade";
+            $params = [':visibilidade' => $visibilidade];
+            $stmt = $this->db->executeQuery($sql, $params);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $sql = "SELECT * FROM spreadsheets WHERE tipo = :tipo AND visibilidade = :visibilidade";
+            $params = [':tipo' => $tipo, ':visibilidade' => $visibilidade];
+            $stmt = $this->db->executeQuery($sql, $params);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+    }
+
+    public function getSpreadsheetsByDate() {
+        $sql = "SELECT * FROM spreadsheets ORDER BY data_cadastro DESC";
+        $stmt = $this->db->executeQuery($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function definirFiltros($filtro) {
-        $tipo = null;
-        $visibilidade = null;
-
-        switch ($filtro) {
-            case 'todos':
-                break; // Não faz nada, já está como null
-            case 'biologico':
-                $tipo = 'biologico';
-                break;
-            case 'ambiental':
-                $tipo = 'ambiental';
-                break;
-            case 'etnobiologico':
-                $tipo = 'etnobiologico'; 
-                break;
-            case '1':
-                $visibilidade = 1; // Somente visíveis
-                break;
-            case '0':
-                $visibilidade = 0; // Somente desabilitados
-                break;
-        }
-
-        return ['tipo' => $tipo, 'visibilidade' => $visibilidade];
-
-    }
-
-     // Method to get the filter SQL based on user input
-     public function getFilterSQL($filtro) {
-        switch ($filtro) {
-            case 'todos':
-                return '';
-            case 'biologico':
-                return "WHERE tipo = 'biologico'";
-            case 'ambiental':
-                return "WHERE tipo = 'ambiental'";
-            case 'etnobiologico':
-                return "WHERE tipo = 'etnobiologico'";
-            case '1':
-                return "WHERE visibilidade = 1";
-            case '0':
-                return "WHERE visibilidade = 0";
-            default:
-                return '';
-        }
     }
 
     

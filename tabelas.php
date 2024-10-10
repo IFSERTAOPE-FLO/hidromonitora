@@ -63,22 +63,10 @@ else{
 		 	</header> <!-- Fim Menu de navegação -->
         <br><br><br><br>
 
-        <h1 class = 'matrizes'>Matrizes:</h1>
-
-        
-        <!--<div class="button-container">
-          <a href="#" class="button">Biológicos</a>
-          <a href="#" class="button">Ambientais</a>
-          <a href="#" class="button">Etnobiológicos</a>
-        </div>-->       
+        <h1 class = 'matrizes'>Matrizes:</h1>     
 
         <?php
-            // Conexão com o banco de dados
-            include_once("config.php");
-
-            if (!$conn) {
-                die("Conexão falhou: " . mysqli_connect_error());
-            }
+            
 
             // Definir as opções de filtragem em um array associativo com as categorias como chave e as opções como valores
             $options = [
@@ -87,11 +75,6 @@ else{
                     'biologico' => 'Dados biológicos',
                     'ambiental' => 'Dados ambientais',
                     'etnobiologico' => 'Dados etnobiológicos'
-                ],
-                'Visibilidade' => [
-                    'todos' => 'Todos',
-                    '1' => 'Visíveis',
-                    '0' => 'Desabilitados'
                 ]
             ];
 
@@ -112,49 +95,24 @@ else{
             echo "<button type='submit' class='button'>Filtrar</button>";
             echo "</form>";
 
-            // Verifica se o formulário foi enviado
-
-          //  $spreadsheets = $spreadsheetController->getAllSpreadsheets();
-            if (isset($_GET['filtro'])) {
-                $filtro = $_GET['filtro'];
             
-                // Realizar a lógica de filtragem aqui com base no valor selecionado em $filtro
-                /*if ($filtro === 'todos') {
-                    $filtroSQL = '';
-                } elseif ($filtro === 'biologico') {
-                    $filtroSQL = "WHERE tipo = 'biologico'";
-                } elseif ($filtro === 'ambiental') {
-                    $filtroSQL = "WHERE tipo = 'ambiental'";
-                } elseif ($filtro === 'etnobiologico') {
-                    $filtroSQL = "WHERE tipo = 'etnobiologico'";
-                } elseif ($filtro === '1') {
-                    $filtroSQL = "WHERE visibilidade = 1";
-                } elseif ($filtro === '0') {
-                    $filtroSQL = "WHERE visibilidade = 0";
-                } else {
-                    // Opção inválida selecionada
-                    $filtroSQL = '';
-                }*/
+                $filtro = $_GET['filtro'] ?? 'todos';
+            
+              
                 include_once("controller/SpreadsheetController.php");
                 $spreadsheetController = new SpreadsheetController();
                 // Chama a função definirFiltros da classe SpreadsheetController
-                $filtros = $spreadsheetController->definirFiltros($filtro);
-                $tipo = $filtros['tipo'];
-                $visibilidade = $filtros['visibilidade'];
 
                 // Chama o método para obter as planilhas filtradas
-                 $spreadsheets = $spreadsheetController->getSpreadsheetsByFilter($tipo, $visibilidade);
+                 $spreadsheets = $spreadsheetController->getSpreadsheetsByType($filtro);
 
                  // Obter o total de registros
-                $totalRegistros = $spreadsheetController->getTotalSpreadsheets($tipo, $visibilidade);
+                $totalRegistros = $spreadsheetController->getTotalSpreadsheets($filtro);
 
                 $result = $spreadsheetController->getSpreadsheetsByDate();
                 
                // $filtroSQL = $spreadsheets;
-            } else {
-                $filtroSQL = '';
-                $filtro = '';
-            }
+            
 
             // Definir o número de itens por página
             $itensPorPagina = 10;
@@ -183,16 +141,12 @@ else{
             // Calcule o deslocamento (offset) para a consulta SQL
             $offset = ($paginaAtual - 1) * $itensPorPagina;
 
-            // Consulta SQL para buscar os registros, ordenados pela coluna "data_cadastro" (mais antigos primeiro)
-            $sql = "SELECT * FROM spreadsheets " . $filtroSQL; //. " ORDER BY data_anexo DESC LIMIT $itensPorPagina OFFSET $offset";
-            $result = mysqli_query($conn, $sql);
-            /*$result = $result ?? [];*/
-
-            if (mysqli_num_rows($result) > 0) {
+     
+            if ($totalRegistros > 0) {
                 // Código HTML para a tabela
                 echo "<table><div class='tbl-header'><tr><th class='opcoes'>Opções</th><th class='codigo'>Código</th><th class='nome'>Nome da Tabela</th><th class='descricao'>Descrição</th><th class='usuario'>Autor</th><th class='tipo'>Tipo</th><th class='data'>Data</th></tr></div>";
 
-                while ($row = mysqli_fetch_assoc($result)) {
+                foreach ($spreadsheets as $row) {
                       echo "<tr><td>";
                       if (isset($_SESSION['email'])) {
                         echo "<a href='visualizar.php?id=".$row["id"]."' class='icon' style='color: black;'><i class='fi fi-rr-eye' title='Visualizar'></i></a>";
