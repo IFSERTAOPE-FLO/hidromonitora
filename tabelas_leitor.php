@@ -40,10 +40,19 @@ else{
 			  		<ul class="nav-list">
               <?php
               if ($log == true){
-			  			  echo "<li><a href='index_leitor.php'>Início</a></li>";
-				  		 
+			  			  echo "<li><a href='index.php'>Início</a></li>";
+				  		  //echo "<li><a href='sobre.php'>Sobre</a></li>";
 							  //echo "<li><a href='tabelas.php'>Matrizes</a></li>";
-				  	
+				  		  echo "<li>
+                <div class='dropdown' style='border-bottom: 2px #ffffff solid;'>
+                  <button class='dropbtn'>Portal de acesso a dados <i class='fi fi-rr-caret-down' style='color: #ffffff;'></i></button>
+                  <div class='dropdown-content'>
+                    <a href='tabelas.php'>Todas as Matrizes</a>
+                    <a href='minhas_matrizes.php'>Minhas Matrizes</a>
+                    <a href='anexar.php'>Anexar Nova Matriz</a>
+                  </div>
+                </div>
+              </li>";
 				  		  echo "<li><a href='sair.php'>Sair</a></li>";
               } else {
                 echo "<li><a href='login.php'>Entrar</a></li>";
@@ -104,11 +113,13 @@ else{
             echo "</form>";
 
             // Verifica se o formulário foi enviado
+
+          //  $spreadsheets = $spreadsheetController->getAllSpreadsheets();
             if (isset($_GET['filtro'])) {
                 $filtro = $_GET['filtro'];
-
+            
                 // Realizar a lógica de filtragem aqui com base no valor selecionado em $filtro
-                if ($filtro === 'todos') {
+                /*if ($filtro === 'todos') {
                     $filtroSQL = '';
                 } elseif ($filtro === 'biologico') {
                     $filtroSQL = "WHERE tipo = 'biologico'";
@@ -123,7 +134,23 @@ else{
                 } else {
                     // Opção inválida selecionada
                     $filtroSQL = '';
-                }
+                }*/
+                include_once("controller/SpreadsheetController.php");
+                $spreadsheetController = new SpreadsheetController();
+                // Chama a função definirFiltros da classe SpreadsheetController
+                $filtros = $spreadsheetController->definirFiltros($filtro);
+                $tipo = $filtros['tipo'];
+                $visibilidade = $filtros['visibilidade'];
+
+                // Chama o método para obter as planilhas filtradas
+                 $spreadsheets = $spreadsheetController->getSpreadsheetsByFilter($tipo, $visibilidade);
+
+                 // Obter o total de registros
+                $totalRegistros = $spreadsheetController->getTotalSpreadsheets($tipo, $visibilidade);
+
+                $result = $spreadsheetController->getSpreadsheetsByDate();
+                
+               // $filtroSQL = $spreadsheets;
             } else {
                 $filtroSQL = '';
                 $filtro = '';
@@ -136,10 +163,11 @@ else{
             $maxPaginasVisiveis = 5; // Ajuste este valor conforme necessário
 
             // Obtenha o número total de registros
-            $sqlContagem = "SELECT COUNT(*) as total FROM tabelas " . $filtroSQL;
+            /*$sqlContagem = "SELECT COUNT(*) as total FROM spreadsheets " . $filtroSQL;
             $resultContagem = mysqli_query($conn, $sqlContagem);
             $rowContagem = mysqli_fetch_assoc($resultContagem);
-            $totalRegistros = $rowContagem['total'];
+            $totalRegistros = $rowContagem['total'];*/
+            $totalRegistros = $totalRegistros ?? 0;
 
             // Calcule o número total de páginas
             $totalPaginas = ceil($totalRegistros / $itensPorPagina);
@@ -155,9 +183,10 @@ else{
             // Calcule o deslocamento (offset) para a consulta SQL
             $offset = ($paginaAtual - 1) * $itensPorPagina;
 
-            // Consulta SQL para buscar os registros, ordenados pela coluna "data_anexo" (mais antigos primeiro)
-            $sql = "SELECT * FROM tabelas " . $filtroSQL; //. " ORDER BY data_anexo DESC LIMIT $itensPorPagina OFFSET $offset";
-            $result = mysqli_query($conn, $sql);
+            // Consulta SQL para buscar os registros, ordenados pela coluna "data_cadastro" (mais antigos primeiro)
+            /*$sql = "SELECT * FROM spreadsheets " . $filtroSQL; //. " ORDER BY data_anexo DESC LIMIT $itensPorPagina OFFSET $offset";
+            $result = mysqli_query($conn, $sql);*/
+            $result = $result ?? [];
 
             if (mysqli_num_rows($result) > 0) {
                 // Código HTML para a tabela
@@ -172,7 +201,7 @@ else{
                           echo "<div class='icon'><a href='#' style='color: black;' onclick='exibirModal(" . $row["id"] . ", \"excluir\")'><i class='fi fi-rr-trash' title='Excluir'></i></a></div>";
                         } elseif ($row["autor"] != $email && $row["visibilidade"] == 1) {
                           echo "<div class='icon'><a href='#' style='color: black;' onclick='exibirModal(" . $row["id"] . ", \"download\")'><i class='fi fi-rr-file-download' title='Download'></i></a></div>";
-                          echo "<div class='desativado'><a href='#' style='visibility: hidden;'<i class='fi fi-rr-trash' title='Opção desabilitada'></i></a></div>";
+                          echo "<div class='desativado'><i class='fi fi-rr-trash' title='Opção desabilitada'></i></div>";
                         } elseif ($row["autor"] != $email && $row["visibilidade"] == 0) {
                           echo "<div class='desativado'><i class='fi fi-rr-file-download' title='Opção desabilitada'></i></div>";
                           echo "<div class='desativado'><i class='fi fi-rr-trash' title='Opção desabilitada'></i></div>";
@@ -184,7 +213,7 @@ else{
                       }
                       
                       echo "</td>";
-                    echo "<td>".$row["codigo"]."</td><td>".$row["nome_tabela"]."</td><td>".$row["descricao"]."</td><td>".$row["autor"]."</td><td>".$row["tipo"]."</td><td>".$row["dataAtual"]."</td></tr>";
+                    echo "<td>".$row["codigo"]."</td><td>".$row["nome"]."</td><td>".$row["descricao"]."</td><td>".$row["autor"]."</td><td>".$row["tipo"]."</td><td>".$row["data_cadastro"]."</td></tr>";
                   }
 
                   echo "</table>";
@@ -372,4 +401,4 @@ else{
         });
       </script>
   </body>
-</html>
+</html
