@@ -99,7 +99,7 @@ $texto_etn = $_SESSION['textos'][4] ?? '';  // Texto etnobiológico
                         </div>
                     </li>";
                     echo "<li><a href='sair.php'>Sair</a></li>";
-                    echo "<li><a href='form.php'>Form</a></li>";
+                    echo "<li><a href='form2.php'>Form</a></li>";
                 } else {
                     echo "<li><a href='login.php'>Entrar</a></li>";
                 }
@@ -337,8 +337,8 @@ $texto_etn = $_SESSION['textos'][4] ?? '';  // Texto etnobiológico
             </div>
             <div class="swiper-slide">
                 <?php
-                if (!empty($_SESSION['imagens'][11])) {
-                    echo '<img src="uploads/' . htmlspecialchars($_SESSION['imagens'][11]) . '" alt="Imagem Biológica 1" width="100%" height="350px">';
+                if (!empty($_SESSION['imagens'][12])) {
+                    echo '<img src="uploads/' . htmlspecialchars($_SESSION['imagens'][12]) . '" alt="Imagem Biológica 1" width="100%" height="350px">';
                 }else{
                     echo '<img src="src/img/exemplo.png" alt="" width="100%" height="350px">';
                 }
@@ -346,8 +346,8 @@ $texto_etn = $_SESSION['textos'][4] ?? '';  // Texto etnobiológico
             </div>
             <div class="swiper-slide">
                 <?php
-                if (!empty($_SESSION['imagens'][11])) {
-                    echo '<img src="uploads/' . htmlspecialchars($_SESSION['imagens'][11]) . '" alt="Imagem Biológica 1" width="100%" height="350px">';
+                if (!empty($_SESSION['imagens'][13])) {
+                    echo '<img src="uploads/' . htmlspecialchars($_SESSION['imagens'][13]) . '" alt="Imagem Biológica 1" width="100%" height="350px">';
                 }else{
                     echo '<img src="src/img/exemplo.png" alt="" width="100%" height="350px">';
                 }
@@ -355,8 +355,8 @@ $texto_etn = $_SESSION['textos'][4] ?? '';  // Texto etnobiológico
             </div>
             <div class="swiper-slide">
                 <?php
-                if (!empty($_SESSION['imagens'][11])) {
-                    echo '<img src="uploads/' . htmlspecialchars($_SESSION['imagens'][11]) . '" alt="Imagem Biológica 1" width="100%" height="350px">';
+                if (!empty($_SESSION['imagens'][14])) {
+                    echo '<img src="uploads/' . htmlspecialchars($_SESSION['imagens'][14]) . '" alt="Imagem Biológica 1" width="100%" height="350px">';
                 }else{
                     echo '<img src="src/img/exemplo.png" alt="" width="100%" height="350px">';
                 }
